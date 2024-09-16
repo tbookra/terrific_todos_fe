@@ -9,7 +9,6 @@ import {
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 type Todo = {
   _id: string;
   todo: string;
@@ -21,7 +20,6 @@ const TodosList = () => {
     queryKey: ["todosList"],
     queryFn: getTodos,
   });
-
 
   const [todosList, setTodosList] = useState<Todo[]>(data);
 
@@ -50,7 +48,7 @@ const TodosList = () => {
       setTodosList(data);
     }
   };
-  
+
   if (isFetching) return <div>Loading...</div>;
   return (
     <div className="w-[300px] mt-8">
@@ -66,7 +64,13 @@ const TodosList = () => {
             checked={todo.done}
             onChange={(e) => handleDoneChange(e, todo._id)}
           />
-          <p className="flex-1 justify-self-start">{todo.todo}</p>
+          <p
+            className={`flex-1 justify-self-start ${
+              todo.done ? "line-through" : ""
+            }`}
+          >
+            {todo.todo}
+          </p>
           <div
             className="cursor-pointer"
             onClick={() => handleDelete(todo._id)}
